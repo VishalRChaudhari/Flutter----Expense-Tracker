@@ -3,6 +3,7 @@ import 'package:expenses/Widget/expense%20list/registerd_list.dart';
 import 'package:expenses/Widget/new_expense.dart';
 import 'package:expenses/data%20model/expense.dart';
 import 'package:flutter/material.dart';
+//import 'package:flutter/services.dart';
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -23,6 +24,7 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      useSafeArea: true,
       isScrollControlled: true,
       context: context,
       builder: (ctx) => Newexpense(onAddExpense: _addexpense),
@@ -66,6 +68,8 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     Widget mainContent = const Center(
       child: Text('No Expense found.Try adding some !'),
     );
@@ -89,12 +93,21 @@ class _ExpensesState extends State<Expenses> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Chart(expenses: registerdExpenses),
-          Expanded(child: mainContent),
-        ],
-      ),
+      body: width < 600
+          ? Column(
+              children: [
+                Chart(expenses: registerdExpenses),
+                Expanded(child: mainContent),
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(
+                  child: Chart(expenses: registerdExpenses),
+                ),
+                Expanded(child: mainContent),
+              ],
+            ),
       //backgroundColor: const Color.fromARGB(255, 175, 215, 196),
     );
   }
