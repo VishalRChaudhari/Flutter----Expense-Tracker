@@ -1,6 +1,8 @@
 import 'package:expenses/Widget/expenses.dart';
 import 'package:flutter/material.dart';
 
+import 'package:flutter/services.dart';
+
 void main() {
   var kcolorScheme = ColorScheme.fromSeed(
     seedColor: const Color.fromARGB(255, 40, 18, 91),
@@ -9,6 +11,14 @@ void main() {
   var kdarkcolorscheme = ColorScheme.fromSeed(
       brightness: Brightness.dark,
       seedColor: const Color.fromARGB(255, 5, 99, 125));
+
+    //To keep any particular type of orientation set
+
+     /* SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+      ]).then((fn) => {
+
+      },);*/
 
   runApp(
     MaterialApp(
